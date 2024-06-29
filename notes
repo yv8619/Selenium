@@ -1,0 +1,121 @@
+
+
+By - is a static class in selenium which returns By object. It provides several static methods to locate the web elements.
+
+html - is used to create web pages. It provides the structure and content of a web page through the use of tags and attributes. html,head,body.
+       rt click -> view page source --> gives you plain html code.
+DOM - represents the structure of the same HTML document as a tree of objects, allowing programs to dynamically access and update the content, 
+      structure, and style of the document.
+	  rt click --> inspect --> dom oof html presented as a tree of objects.
+	  
+	  
+xpath: //tag[@locator='value']
+ex: //button[@id='search']
+
+driver.findElement(By.linkText("LOADER"))
+
+
+BUTTONS:
+---------
+isSelected() -- may give you false output if tag input is not selected. select input tag always to locate checkbox or radio button.
+isEnabled()
+
+Dropdown:
+--------
+Select class. Create object of Select class and pass drowdown location in contrcutor.
+Select carDropdown = new Select(driver.findElement(By.cssSelector(#cars)));
+carDropdown.selectByVisibleText("Honda");
+carDropdown.selectByValue();
+carDropdown.selectByIndex();
+carDropdown.deselectAll();
+carDropdown.getOptions();
+getAllSelectedOptions();
+getFirstSelectedOption();
+
+Alert - Interface
+-----
+driver.switchTo().alert().accept();
+driver.switchTo().alert().dismiss();
+
+
+Parent child window
+--------------------
+driver.getWindowHandle()
+driver.getWindowHandles()
+driver.switchTo().window()
+
+String parentWindow = driver.getWindowHandle();
+Set<String> childWindows = driver.getWindowHandles();
+Iterator<String> iterate = childWindows.Iterator();
+
+While(iterate.hasNext()){
+	String child = iterate.next();
+	
+	if(parentWindow.equalsIgnoreCase(child){
+		driver.switchTo().window(child);
+	}
+}
+driver.switchTo().window(parentWindow)
+
+
+Waits
+------
+IMPLICIT WAIT -- driver.manage().timeouts().implictlyWait(10,TimeUnit.SECONDS);
+
+EXPLICIT WAIT -- comes from WebDriverWait class.
+WebDriverWait wait = new WebDriverWait(driver,20).
+WebElement element = wait.until(ExpectedConditions.VisibilityOfElementLocated(By.xpath());    // returns element
+List<WebElement> flights = wait.until(ExpectedConditions.VisibilityOfElementLocated(By.xpath());  // can store list of element as well.
+
+FLUENT WAIT - comes from wait class.
+Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+						.withTimeout(Duration.ofSeconds(30))
+							.pollingEvery(Duration.ofSeconds(5))  
+								.ignoring(NoSuchElementException.class);  
+
+
+Iframe
+------
+driver.switchTo().frame("iframeID");
+driver.switchTo().defaultContent();	
+
+
+Javscript
+---------
+JavaScriptExcutor is an interface that helps to execute JS thourgh selenium webdriver. It allows us to interact with html DOM directly.
+
+Casting WebDriver to JavaScriptExecutor:
+First, you need to cast your WebDriver instance to JavaScriptExecutor. This is because JavaScriptExecutor is an interface, and you need an 
+instance of the WebDriver that implements this interface (like ChromeDriver, FirefoxDriver, etc.).
+
+JavaScriptExcutor js = (JavaScriptExcutor) driver;
+js.executeScript("window.scrollBy(0,200)");		// window.scrollBy(0,200) this is javascript code.
+
+WebElement element = driver.findElement(By.id("elementId"));
+js.executeScript("arguments[0].click();", element);
+
+
+chrome options
+--------------
+In order to customize browser settings for a test, we can use ChromeOptions class. lly, we have for other browsers also.
+ChromeOptions options = new ChromeOptions();
+options.addArguments("--headless");
+options.addArguments("--disable-notifications");
+options.addArguments("disable-infobars");
+options.addArguments("--incognito");
+options.addArguments("--start-maximized");
+
+Desired Capabilities
+--------------------
+Generally used with selenium Grid
+
+
+ 
+
+
+
+
+
+
+
+
